@@ -5,61 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desa Wisata Citorek Sabrang - Jelajahi Pesona Kasepuhan Banten</title>
     
-    <!-- Chosen Palette: Earthy Harmony -->
-    <!-- Application Structure Plan: A single-page, vertical scrolling application that guides the user on a journey of discovery. The flow is: Hero (Welcome) -> About (Introduction) -> Tourism (Explore Activities, with an interactive cost comparison chart) -> UMKM Products (Discover Local Crafts) -> Map (Location) -> Contact (Connect). A sticky navigation bar allows instant travel between sections. This narrative structure is more engaging and modern than a multi-page site, encouraging linear exploration while providing easy access to specific information, perfectly suited for a tourism-focused website. -->
-    <!-- Visualization & Content Choices: Report Info: Tourism prices (Gunung Luhur ticket, camping, workshops). -> Goal: Compare the relative costs of different activities to help tourists plan. -> Viz/Presentation Method: A horizontal bar chart using Chart.js. -> Interaction: Tooltips on hover display precise costs. -> Justification: A chart offers a quick, scannable visual comparison that is more impactful and easier to digest than a text list of prices. It adds a dynamic, data-driven element to the page. -> Library/Method: Chart.js rendered on a Canvas element. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- External JavaScript -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,900&family=Lora:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #f5f2e9;
-            color: #333333;
-            font-family: 'Lora', serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Nunito Sans', sans-serif;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
-        }
-        
-        /* Animasi */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes kenburns {
-            0% { transform: scale(1.1) translate(0, 0); }
-            100% { transform: scale(1) translate(0, 0); }
-        }
-
-        .hero-bg-animate {
-            animation: kenburns 15s ease-out forwards;
-        }
-        
-        .fade-in-up {
-            opacity: 0;
-        }
-        .fade-in-up.visible {
-            animation: fadeInUp 1s forwards;
-        }
-    </style>
 </head>
 <body class="antialiased">
 
@@ -287,73 +241,20 @@
     <!-- Footer -->
     <footer class="bg-[#3d342a] text-white text-center py-6">
         <div class="container mx-auto">
-            <p>&copy; 2025 Desa Citorek Sabrang. All rights reserved.</p>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2023 Desa Citorek Sabrang. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-[#f2b705] transition-colors">Terms of Service</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-[#f2b705] transition-colors">Privacy Policy</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mobile Menu Toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-
-            // Chart.js
-            const ctx = document.getElementById('tourismCostChart').getContext('2d');
-            const tourismCostChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Tiket Masuk Gunung Luhur', 'Camping (per tenda)', 'Workshop Anyam Rotan', 'Paket Tracking Sawah'],
-                    datasets: [{
-                        label: 'Estimasi Biaya (Rp)',
-                        data: [10000, 50000, 100000, 100000],
-                        backgroundColor: ['rgba(74, 92, 58, 0.7)', 'rgba(242, 183, 5, 0.7)', 'rgba(61, 52, 42, 0.7)', 'rgba(166, 123, 91, 0.7)'],
-                        borderColor: ['#4a5c3a', '#f2b705', '#3d342a', '#a67b5b'],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.dataset.label || ''}: ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(c.parsed.x)}` } } },
-                    scales: { x: { beginAtZero: true, ticks: { callback: (v) => `Rp ${v/1000}k` } } }
-                }
-            });
-            
-            // Sticky header
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('bg-[#3d342a]/90', 'backdrop-blur-sm', 'shadow-lg');
-                } else {
-                    header.classList.remove('bg-[#3d342a]/90', 'backdrop-blur-sm', 'shadow-lg');
-                }
-            });
-
-            // Scroll Animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in-up').forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
-
+    <!-- External JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
