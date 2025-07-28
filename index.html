@@ -34,29 +34,54 @@
             height: 400px;
             max-height: 50vh;
         }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes kenburns {
+            0% { transform: scale(1.1) translate(0, 0); }
+            100% { transform: scale(1) translate(0, 0); }
+        }
+
+        .hero-bg-animate {
+            animation: kenburns 15s ease-out forwards;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+        }
+        .fade-in-up.visible {
+            animation: fadeInUp 1s forwards;
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header & Navigasi -->
-    <header id="header" class="bg-[#3d342a] text-white p-4 sticky top-0 z-50 shadow-lg transition-all duration-300">
+    <header id="header" class="bg-[#3d342a] text-white p-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#hero" class="flex items-center gap-3">
-                <img src="image/IMG_5921.jpeg" alt="Logo Desa Citorek Sabrang" class="h-10">
+                <img src="image/IMG_5921.jpeg" alt="Logo Desa Citorek Sabrang" class="h-10 rounded-full">
                 <span class="text-lg font-bold tracking-wide">CITOREK SABRANG</span>
             </a>
-            <nav class="hidden md:flex space-x-6">
+            <nav class="hidden md:flex items-center space-x-6">
                 <a href="#tentang" class="hover:text-[#f2b705] transition-colors">Tentang Desa</a>
                 <a href="#wisata" class="hover:text-[#f2b705] transition-colors">Wisata</a>
                 <a href="#produk" class="hover:text-[#f2b705] transition-colors">Produk UMKM</a>
                 <a href="#peta" class="hover:text-[#f2b705] transition-colors">Peta</a>
-                <a href="#kontak" class="bg-[#4a5c3a] px-4 py-2 rounded-full hover:bg-[#f2b705] hover:text-[#3d342a] transition-all">Hubungi Kami</a>
+                <a href="#kontak" class="bg-[#4a5c3a] px-4 py-2 rounded-full hover:bg-[#f2b705] hover:text-[#3d342a] transition-all transform hover:scale-105">Hubungi Kami</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden mt-4">
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-[#3d342a]/90 backdrop-blur-sm rounded-b-lg">
             <a href="#tentang" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Tentang Desa</a>
             <a href="#wisata" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Wisata</a>
             <a href="#produk" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Produk UMKM</a>
@@ -67,20 +92,21 @@
 
     <main>
         <!-- Bagian Hero -->
-        <section id="hero" class="h-screen bg-cover bg-center flex items-center justify-center text-white relative" style="background-image: url('image/IMG_5920.jpeg');">
+        <section id="hero" class="h-screen flex items-center justify-center text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center hero-bg-animate" style="background-image: url('image/IMG_5920.jpeg');"></div>
             <div class="absolute inset-0 bg-black/50"></div>
-            <div class="relative text-center z-10 p-4">
+            <div class="relative text-center z-10 p-4" style="animation: fadeInUp 1.2s ease-out;">
                 <h1 class="text-xl md:text-2xl font-light tracking-wider">SELAMAT DATANG DI WEBSITE RESMI</h1>
-                <h2 class="text-5xl md:text-7xl font-black my-4">DESA CITOREK SABRANG</h2>
+                <h2 class="text-5xl md:text-7xl font-black my-4 text-shadow-lg">DESA CITOREK SABRANG</h2>
                 <p class="text-lg md:text-xl">Kecamatan Cibeber, Kabupaten Lebak, Provinsi Banten.</p>
             </div>
         </section>
 
         <!-- Bagian Tentang Desa -->
-        <section id="tentang" class="py-20 md:py-28">
+        <section id="tentang" class="py-20 md:py-28 overflow-hidden">
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="text-center md:text-left">
+                    <div class="text-center md:text-left fade-in-up">
                         <h2 class="text-4xl font-bold text-[#4a5c3a] mb-6">TENTANG DESA CITOREK SABRANG</h2>
                         <p class="mb-4 text-lg">
                             Desa Citorek Sabrang adalah salah satu dari lima desa adat di Kasepuhan Citorek, Kecamatan Cibeber, Banten. Dengan luas sekitar 1.698 hektar dan dihuni oleh &plusmn;1.810 jiwa, desa ini kaya akan tradisi dan keindahan alam.
@@ -97,14 +123,14 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-                        <div class="col-span-1 row-span-2 rounded-lg overflow-hidden shadow-xl">
+                    <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px] fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="col-span-1 row-span-2 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
                             <img src="image/IMG_5923.jpeg" alt="Pemandangan desa dari ketinggian" class="w-full h-full object-cover">
                         </div>
-                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl">
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
                             <img src="image/IMG_5924.jpeg" alt="Rumah adat leuit khas Citorek" class="w-full h-full object-cover">
                         </div>
-                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl">
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
                              <img src="image/JPEG image(1).jpeg" alt="Seorang pengrajin sedang menganyam rotan" class="w-full h-full object-cover">
                         </div>
                     </div>
@@ -113,34 +139,36 @@
         </section>
 
         <!-- Bagian Wisata -->
-        <section id="wisata" class="py-20 md:py-28 bg-white/70">
+        <section id="wisata" class="py-20 md:py-28 bg-white/70 overflow-hidden">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">PESONA WISATA CITOREK SABRANG</h2>
-                <p class="max-w-3xl mx-auto mb-12 text-lg">Nikmati wisata yang menyatu dengan alam dan budaya lokal. Dari trekking di sawah, atraksi adat, hingga panorama Negeri di Atas Awan yang legendaris.</p>
+                <div class="fade-in-up">
+                    <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">PESONA WISATA CITOREK SABRANG</h2>
+                    <p class="max-w-3xl mx-auto mb-12 text-lg">Nikmati wisata yang menyatu dengan alam dan budaya lokal. Dari trekking di sawah, atraksi adat, hingga panorama Negeri di Atas Awan yang legendaris.</p>
+                </div>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 fade-in-up">
                         <img src="image/JPEG image(2).jpeg" alt="Gunung Luhur - Negeri di Atas Awan" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">GUNUNG LUHUR</h3>
                             <p class="text-sm">Pemandangan lautan awan spektakuler saat matahari terbit. Tiket masuk sangat terjangkau.</p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 fade-in-up" style="animation-delay: 0.1s;">
                         <img src="image/JPEG image(3).jpeg" alt="Tracking di Pesawahan Barat" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">TRACKING SAWAH</h3>
                             <p class="text-sm">Rasakan pengalaman berjalan di tengah hamparan sawah tradisional yang menyejukkan mata.</p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 fade-in-up" style="animation-delay: 0.2s;">
                         <img src="image/JPEG image(4).jpeg" alt="Workshop Menganyam Rotan" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">MENGANYAM ROTAN</h3>
                             <p class="text-sm">Belajar langsung dari pengrajin lokal dan bawa pulang hasil karya tangan Anda sendiri.</p>
                         </div>
                     </div>
-                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 fade-in-up" style="animation-delay: 0.3s;">
                         <img src="image/JPEG image(5).jpeg" alt="Ngored Huma Adat" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">NGORED HUMA ADAT</h3>
@@ -149,40 +177,43 @@
                     </div>
                 </div>
 
-                <h3 class="text-2xl font-bold text-[#4a5c3a] mb-4">Perbandingan Estimasi Biaya Aktivitas</h3>
-                <p class="max-w-2xl mx-auto mb-8 text-md">Visualisasi ini membantu Anda membandingkan biaya dasar beberapa aktivitas populer di Citorek Sabrang. Arahkan kursor ke bar untuk melihat detail harga (dalam Rupiah).</p>
-                <div class="chart-container">
-                    <canvas id="tourismCostChart"></canvas>
+                <div class="fade-in-up">
+                    <h3 class="text-2xl font-bold text-[#4a5c3a] mb-4">Perbandingan Estimasi Biaya Aktivitas</h3>
+                    <p class="max-w-2xl mx-auto mb-8 text-md">Visualisasi ini membantu Anda membandingkan biaya dasar beberapa aktivitas populer di Citorek Sabrang. Arahkan kursor ke bar untuk melihat detail harga (dalam Rupiah).</p>
+                    <div class="chart-container">
+                        <canvas id="tourismCostChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Bagian Produk UMKM -->
-        <section id="produk" class="py-20 md:py-28">
+        <section id="produk" class="py-20 md:py-28 overflow-hidden">
             <div class="container mx-auto px-6 text-center">
-                 <span class="inline-block bg-[#e8e1d0] text-[#3d342a] text-sm font-bold px-4 py-1 rounded-full mb-4">PRODUK UMKM</span>
-                <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">Karya Lokal Unggulan Citorek Sabrang</h2>
-                <p class="max-w-3xl mx-auto mb-12 text-lg">Dukung ekonomi lokal dengan membeli produk asli, alami, dan berkualitas yang dibuat langsung oleh tangan-tangan terampil warga desa.</p>
-
+                <div class="fade-in-up">
+                    <span class="inline-block bg-[#e8e1d0] text-[#3d342a] text-sm font-bold px-4 py-1 rounded-full mb-4">PRODUK UMKM</span>
+                    <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">Karya Lokal Unggulan Citorek Sabrang</h2>
+                    <p class="max-w-3xl mx-auto mb-12 text-lg">Dukung ekonomi lokal dengan membeli produk asli, alami, dan berkualitas yang dibuat langsung oleh tangan-tangan terampil warga desa.</p>
+                </div>
                 <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a]">
-                        <img src="image/JPEG image(6).jpeg" alt="Gula Aren Asli Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0">
+                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a] fade-in-up transform hover:shadow-2xl transition-shadow duration-300">
+                        <img src="image/JPEG image(6).jpeg" alt="Gula Aren Asli Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0 border-4 border-white shadow-md">
                         <div class="text-center md:text-left">
                             <div class="text-yellow-500 mb-1 text-xl">★★★★★</div>
                             <h3 class="font-bold text-2xl text-[#4a5c3a]">Gula Aren Asli</h3>
                             <p class="text-sm my-2">Diproses dari nira pohon enau secara tradisional, tanpa bahan kimia. Manisnya alami dan khas.</p>
                             <div class="my-3"><span class="bg-[#f2b705] text-[#3d342a] font-bold px-4 py-2 rounded-full">Rp 9.000</span></div>
-                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Gula%20Aren%20Asli%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705]">Pesan via WhatsApp →</a>
+                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Gula%20Aren%20Asli%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705] inline-block mt-2">Pesan via WhatsApp →</a>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a]">
-                        <img src="image/JPEG image(7).jpeg" alt="Anyaman Rotan Khas Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0">
+                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a] fade-in-up transform hover:shadow-2xl transition-shadow duration-300" style="animation-delay: 0.2s;">
+                        <img src="image/JPEG image(7).jpeg" alt="Anyaman Rotan Khas Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0 border-4 border-white shadow-md">
                         <div class="text-center md:text-left">
                             <div class="text-yellow-500 mb-1 text-xl">★★★★★</div>
                             <h3 class="font-bold text-2xl text-[#4a5c3a]">Anyaman Rotan</h3>
                             <p class="text-sm my-2">Kerajinan tangan elegan dan tahan lama, dari tikar hingga cenderamata unik untuk dekorasi rumah.</p>
                             <div class="my-3"><span class="bg-[#f2b705] text-[#3d342a] font-bold px-4 py-2 rounded-full">Mulai Rp 25.000</span></div>
-                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Anyaman%20Rotan%20Khas%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705]">Pesan via WhatsApp →</a>
+                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Anyaman%20Rotan%20Khas%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705] inline-block mt-2">Pesan via WhatsApp →</a>
                         </div>
                     </div>
                 </div>
@@ -190,11 +221,11 @@
         </section>
 
         <!-- Bagian Peta -->
-        <section id="peta" class="py-20 md:py-28 bg-white/70">
-            <div class="container mx-auto px-6 text-center">
+        <section id="peta" class="py-20 md:py-28 bg-white/70 overflow-hidden">
+            <div class="container mx-auto px-6 text-center fade-in-up">
                 <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">PETA LOKASI DESA</h2>
                 <p class="max-w-3xl mx-auto mb-12 text-lg">Gunakan peta interaktif ini untuk menemukan lokasi Desa Citorek Sabrang dan merencanakan perjalanan Anda.</p>
-                <div class="rounded-lg overflow-hidden shadow-2xl">
+                <div class="rounded-lg overflow-hidden shadow-2xl border-4 border-white">
                      <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15859.51081518598!2d106.3350138686617!3d-6.600641324835694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e423a4a6135c33b%3A0x8978b871b6b93b4a!2sCitorek%20Sabrang%2C%20Cibeber%2C%20Lebak%20Regency%2C%20Banten!5e0!3m2!1sen!2sid!4v1678886543210!5m2!1sen!2sid" 
                         width="100%" 
@@ -209,23 +240,23 @@
         </section>
 
         <!-- Bagian Kontak -->
-        <section id="kontak" class="py-20 md:py-28">
+        <section id="kontak" class="py-20 md:py-28 overflow-hidden">
             <div class="container mx-auto px-6">
-                <div class="text-center">
+                <div class="text-center fade-in-up">
                     <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">HUBUNGI KAMI</h2>
                     <p class="max-w-3xl mx-auto mb-12 text-lg">Kami terbuka untuk komunikasi, kerja sama wisata, pemesanan produk, maupun pertanyaan umum seputar Desa Citorek Sabrang.</p>
                 </div>
-                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl grid md:grid-cols-2 gap-8">
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl grid md:grid-cols-2 gap-8 fade-in-up" style="animation-delay: 0.2s;">
                     <div class="space-y-6">
                         <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center gap-4 group">
-                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>📱</span></div>
+                            <div class="bg-[#f5f2e9] p-3 rounded-full transition-transform duration-300 group-hover:scale-110"><span>📱</span></div>
                             <div>
                                 <span class="block font-bold text-[#3d342a]">WhatsApp Admin</span>
                                 <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">Klik untuk Chat Langsung</span>
                             </div>
                         </a>
                         <a href="mailto:citoreksabrang@gmail.com" class="flex items-center gap-4 group">
-                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>✉️</span></div>
+                            <div class="bg-[#f5f2e9] p-3 rounded-full transition-transform duration-300 group-hover:scale-110"><span>✉️</span></div>
                             <div>
                                 <span class="block font-bold text-[#3d342a]">Email Resmi</span>
                                 <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">citoreksabrang@gmail.com</span>
@@ -234,14 +265,14 @@
                     </div>
                      <div class="space-y-6">
                         <a href="https://instagram.com/citoreksabrang" target="_blank" class="flex items-center gap-4 group">
-                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>📷</span></div>
+                            <div class="bg-[#f5f2e9] p-3 rounded-full transition-transform duration-300 group-hover:scale-110"><span>📷</span></div>
                             <div>
                                 <span class="block font-bold text-[#3d342a]">Instagram</span>
                                 <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">@citoreksabrang</span>
                             </div>
                         </a>
                         <a href="https://facebook.com/citoreksabrang" target="_blank" class="flex items-center gap-4 group">
-                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>👍</span></div>
+                            <div class="bg-[#f5f2e9] p-3 rounded-full transition-transform duration-300 group-hover:scale-110"><span>👍</span></div>
                             <div>
                                 <span class="block font-bold text-[#3d342a]">Facebook</span>
                                 <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">facebook.com/citoreksabrang</span>
@@ -269,7 +300,6 @@
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // Close mobile menu when a link is clicked
             const mobileMenuLinks = mobileMenu.querySelectorAll('a');
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -277,7 +307,7 @@
                 });
             });
 
-            // Chart.js - Tourism Cost Comparison
+            // Chart.js
             const ctx = document.getElementById('tourismCostChart').getContext('2d');
             const tourismCostChart = new Chart(ctx, {
                 type: 'bar',
@@ -286,18 +316,8 @@
                     datasets: [{
                         label: 'Estimasi Biaya (Rp)',
                         data: [10000, 50000, 100000, 100000],
-                        backgroundColor: [
-                            'rgba(74, 92, 58, 0.7)',
-                            'rgba(242, 183, 5, 0.7)',
-                            'rgba(61, 52, 42, 0.7)',
-                            'rgba(166, 123, 91, 0.7)'
-                        ],
-                        borderColor: [
-                            '#4a5c3a',
-                            '#f2b705',
-                            '#3d342a',
-                            '#a67b5b'
-                        ],
+                        backgroundColor: ['rgba(74, 92, 58, 0.7)', 'rgba(242, 183, 5, 0.7)', 'rgba(61, 52, 42, 0.7)', 'rgba(166, 123, 91, 0.7)'],
+                        borderColor: ['#4a5c3a', '#f2b705', '#3d342a', '#a67b5b'],
                         borderWidth: 2
                     }]
                 },
@@ -305,46 +325,32 @@
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(context.parsed.x);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value, index, values) {
-                                    return 'Rp ' + (value / 1000) + 'k';
-                                }
-                            }
-                        }
-                    }
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.dataset.label || ''}: ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(c.parsed.x)}` } } },
+                    scales: { x: { beginAtZero: true, ticks: { callback: (v) => `Rp ${v/1000}k` } } }
                 }
             });
             
-            // Sticky header background change on scroll
+            // Sticky header
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
-                    header.classList.add('bg-[#3d342a]/90', 'backdrop-blur-sm');
+                    header.classList.add('bg-[#3d342a]/90', 'backdrop-blur-sm', 'shadow-lg');
                 } else {
-                    header.classList.remove('bg-[#3d342a]/90', 'backdrop-blur-sm');
+                    header.classList.remove('bg-[#3d342a]/90', 'backdrop-blur-sm', 'shadow-lg');
                 }
+            });
+
+            // Scroll Animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
             });
         });
     </script>
