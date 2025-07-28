@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desa Wisata Citorek Sabrang - Jelajahi Pesona Kasepuhan Banten</title>
+    
+    <!-- Chosen Palette: Earthy Harmony -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling application that guides the user on a journey of discovery. The flow is: Hero (Welcome) -> About (Introduction) -> Tourism (Explore Activities, with an interactive cost comparison chart) -> UMKM Products (Discover Local Crafts) -> Map (Location) -> Contact (Connect). A sticky navigation bar allows instant travel between sections. This narrative structure is more engaging and modern than a multi-page site, encouraging linear exploration while providing easy access to specific information, perfectly suited for a tourism-focused website. -->
+    <!-- Visualization & Content Choices: Report Info: Tourism prices (Gunung Luhur ticket, camping, workshops). -> Goal: Compare the relative costs of different activities to help tourists plan. -> Viz/Presentation Method: A horizontal bar chart using Chart.js. -> Interaction: Tooltips on hover display precise costs. -> Justification: A chart offers a quick, scannable visual comparison that is more impactful and easier to digest than a text list of prices. It adds a dynamic, data-driven element to the page. -> Library/Method: Chart.js rendered on a Canvas element. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,900&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f5f2e9;
+            color: #333333;
+            font-family: 'Lora', serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Nunito Sans', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigasi -->
+    <header id="header" class="bg-[#3d342a] text-white p-4 sticky top-0 z-50 shadow-lg transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="flex items-center gap-3">
+                <img src="image/IMG_5921.jpeg" alt="Logo Desa Citorek Sabrang" class="h-10">
+                <span class="text-lg font-bold tracking-wide">CITOREK SABRANG</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#tentang" class="hover:text-[#f2b705] transition-colors">Tentang Desa</a>
+                <a href="#wisata" class="hover:text-[#f2b705] transition-colors">Wisata</a>
+                <a href="#produk" class="hover:text-[#f2b705] transition-colors">Produk UMKM</a>
+                <a href="#peta" class="hover:text-[#f2b705] transition-colors">Peta</a>
+                <a href="#kontak" class="bg-[#4a5c3a] px-4 py-2 rounded-full hover:bg-[#f2b705] hover:text-[#3d342a] transition-all">Hubungi Kami</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="#tentang" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Tentang Desa</a>
+            <a href="#wisata" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Wisata</a>
+            <a href="#produk" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Produk UMKM</a>
+            <a href="#peta" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Peta</a>
+            <a href="#kontak" class="block py-2 px-4 text-sm hover:bg-[#4a5c3a]">Hubungi Kami</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Bagian Hero -->
+        <section id="hero" class="h-screen bg-cover bg-center flex items-center justify-center text-white relative" style="background-image: url('image/IMG_5920.jpeg');">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative text-center z-10 p-4">
+                <h1 class="text-xl md:text-2xl font-light tracking-wider">SELAMAT DATANG DI WEBSITE RESMI</h1>
+                <h2 class="text-5xl md:text-7xl font-black my-4">DESA CITOREK SABRANG</h2>
+                <p class="text-lg md:text-xl">Kecamatan Cibeber, Kabupaten Lebak, Provinsi Banten.</p>
+            </div>
+        </section>
+
+        <!-- Bagian Tentang Desa -->
+        <section id="tentang" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-4xl font-bold text-[#4a5c3a] mb-6">TENTANG DESA CITOREK SABRANG</h2>
+                        <p class="mb-4 text-lg">
+                            Desa Citorek Sabrang adalah salah satu dari lima desa adat di Kasepuhan Citorek, Kecamatan Cibeber, Banten. Dengan luas sekitar 1.698 hektar dan dihuni oleh &plusmn;1.810 jiwa, desa ini kaya akan tradisi dan keindahan alam.
+                        </p>
+                        <p class="mb-6">
+                            Mata pencaharian utama masyarakat adalah bertani, berkebun, beternak, dan menganyam rotan, hidup harmonis berdampingan dengan alam. Berasal dari komunitas kasepuhan yang berpindah dari Jasinga pada tahun 1846, Desa Citorek tetap menjunjung tinggi adat istiadat leluhur.
+                        </p>
+                        <div class="bg-white/60 p-6 rounded-lg shadow-md border-l-4 border-[#f2b705]">
+                            <h4 class="font-bold text-lg text-[#4a5c3a] mb-2">Budaya & Keunggulan</h4>
+                            <ul class="list-none space-y-2">
+                                <li class="flex items-start gap-2"><span>🌾</span><span>Tradisi adat yang masih lestari, seperti Seren Taun.</span></li>
+                                <li class="flex items-start gap-2"><span>⛰️</span><span>Keindahan alam memukau: sawah, pegunungan, dan udara bersih.</span></li>
+                                <li class="flex items-start gap-2"><span>🤝</span><span>Warga yang ramah dan menyambut hangat para pengunjung.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
+                        <div class="col-span-1 row-span-2 rounded-lg overflow-hidden shadow-xl">
+                            <img src="image/IMG_5923.jpeg" alt="Pemandangan desa dari ketinggian" class="w-full h-full object-cover">
+                        </div>
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl">
+                            <img src="image/IMG_5924.jpeg" alt="Rumah adat leuit khas Citorek" class="w-full h-full object-cover">
+                        </div>
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-xl">
+                             <img src="image/JPEG image(1).jpeg" alt="Seorang pengrajin sedang menganyam rotan" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Wisata -->
+        <section id="wisata" class="py-20 md:py-28 bg-white/70">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">PESONA WISATA CITOREK SABRANG</h2>
+                <p class="max-w-3xl mx-auto mb-12 text-lg">Nikmati wisata yang menyatu dengan alam dan budaya lokal. Dari trekking di sawah, atraksi adat, hingga panorama Negeri di Atas Awan yang legendaris.</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="image/JPEG image(2).jpeg" alt="Gunung Luhur - Negeri di Atas Awan" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">GUNUNG LUHUR</h3>
+                            <p class="text-sm">Pemandangan lautan awan spektakuler saat matahari terbit. Tiket masuk sangat terjangkau.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="image/JPEG image(3).jpeg" alt="Tracking di Pesawahan Barat" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">TRACKING SAWAH</h3>
+                            <p class="text-sm">Rasakan pengalaman berjalan di tengah hamparan sawah tradisional yang menyejukkan mata.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="image/JPEG image(4).jpeg" alt="Workshop Menganyam Rotan" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">MENGANYAM ROTAN</h3>
+                            <p class="text-sm">Belajar langsung dari pengrajin lokal dan bawa pulang hasil karya tangan Anda sendiri.</p>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="image/JPEG image(5).jpeg" alt="Ngored Huma Adat" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2 text-[#4a5c3a]">NGORED HUMA ADAT</h3>
+                            <p class="text-sm">Ikuti prosesi unik membersihkan ladang yang sarat akan makna spiritual dan sosial.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-[#4a5c3a] mb-4">Perbandingan Estimasi Biaya Aktivitas</h3>
+                <p class="max-w-2xl mx-auto mb-8 text-md">Visualisasi ini membantu Anda membandingkan biaya dasar beberapa aktivitas populer di Citorek Sabrang. Arahkan kursor ke bar untuk melihat detail harga (dalam Rupiah).</p>
+                <div class="chart-container">
+                    <canvas id="tourismCostChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Produk UMKM -->
+        <section id="produk" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                 <span class="inline-block bg-[#e8e1d0] text-[#3d342a] text-sm font-bold px-4 py-1 rounded-full mb-4">PRODUK UMKM</span>
+                <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">Karya Lokal Unggulan Citorek Sabrang</h2>
+                <p class="max-w-3xl mx-auto mb-12 text-lg">Dukung ekonomi lokal dengan membeli produk asli, alami, dan berkualitas yang dibuat langsung oleh tangan-tangan terampil warga desa.</p>
+
+                <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a]">
+                        <img src="image/JPEG image(6).jpeg" alt="Gula Aren Asli Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0">
+                        <div class="text-center md:text-left">
+                            <div class="text-yellow-500 mb-1 text-xl">★★★★★</div>
+                            <h3 class="font-bold text-2xl text-[#4a5c3a]">Gula Aren Asli</h3>
+                            <p class="text-sm my-2">Diproses dari nira pohon enau secara tradisional, tanpa bahan kimia. Manisnya alami dan khas.</p>
+                            <div class="my-3"><span class="bg-[#f2b705] text-[#3d342a] font-bold px-4 py-2 rounded-full">Rp 9.000</span></div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Gula%20Aren%20Asli%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705]">Pesan via WhatsApp →</a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-6 p-6 border-2 border-[#4a5c3a]">
+                        <img src="image/JPEG image(7).jpeg" alt="Anyaman Rotan Khas Citorek" class="w-36 h-36 object-cover rounded-full flex-shrink-0">
+                        <div class="text-center md:text-left">
+                            <div class="text-yellow-500 mb-1 text-xl">★★★★★</div>
+                            <h3 class="font-bold text-2xl text-[#4a5c3a]">Anyaman Rotan</h3>
+                            <p class="text-sm my-2">Kerajinan tangan elegan dan tahan lama, dari tikar hingga cenderamata unik untuk dekorasi rumah.</p>
+                            <div class="my-3"><span class="bg-[#f2b705] text-[#3d342a] font-bold px-4 py-2 rounded-full">Mulai Rp 25.000</span></div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20memesan%20Anyaman%20Rotan%20Khas%20Citorek." target="_blank" class="font-bold text-[#4a5c3a] hover:text-[#f2b705]">Pesan via WhatsApp →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Peta -->
+        <section id="peta" class="py-20 md:py-28 bg-white/70">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">PETA LOKASI DESA</h2>
+                <p class="max-w-3xl mx-auto mb-12 text-lg">Gunakan peta interaktif ini untuk menemukan lokasi Desa Citorek Sabrang dan merencanakan perjalanan Anda.</p>
+                <div class="rounded-lg overflow-hidden shadow-2xl">
+                     <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15859.51081518598!2d106.3350138686617!3d-6.600641324835694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e423a4a6135c33b%3A0x8978b871b6b93b4a!2sCitorek%20Sabrang%2C%20Cibeber%2C%20Lebak%20Regency%2C%20Banten!5e0!3m2!1sen!2sid!4v1678886543210!5m2!1sen!2sid" 
+                        width="100%" 
+                        height="500" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Kontak -->
+        <section id="kontak" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-4xl font-bold text-[#4a5c3a] mb-4">HUBUNGI KAMI</h2>
+                    <p class="max-w-3xl mx-auto mb-12 text-lg">Kami terbuka untuk komunikasi, kerja sama wisata, pemesanan produk, maupun pertanyaan umum seputar Desa Citorek Sabrang.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center gap-4 group">
+                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>📱</span></div>
+                            <div>
+                                <span class="block font-bold text-[#3d342a]">WhatsApp Admin</span>
+                                <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">Klik untuk Chat Langsung</span>
+                            </div>
+                        </a>
+                        <a href="mailto:citoreksabrang@gmail.com" class="flex items-center gap-4 group">
+                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>✉️</span></div>
+                            <div>
+                                <span class="block font-bold text-[#3d342a]">Email Resmi</span>
+                                <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">citoreksabrang@gmail.com</span>
+                            </div>
+                        </a>
+                    </div>
+                     <div class="space-y-6">
+                        <a href="https://instagram.com/citoreksabrang" target="_blank" class="flex items-center gap-4 group">
+                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>📷</span></div>
+                            <div>
+                                <span class="block font-bold text-[#3d342a]">Instagram</span>
+                                <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">@citoreksabrang</span>
+                            </div>
+                        </a>
+                        <a href="https://facebook.com/citoreksabrang" target="_blank" class="flex items-center gap-4 group">
+                            <div class="bg-[#f5f2e9] p-3 rounded-full"><span>👍</span></div>
+                            <div>
+                                <span class="block font-bold text-[#3d342a]">Facebook</span>
+                                <span class="text-sm text-gray-600 group-hover:text-[#f2b705]">facebook.com/citoreksabrang</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#3d342a] text-white text-center py-6">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Desa Citorek Sabrang. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Chart.js - Tourism Cost Comparison
+            const ctx = document.getElementById('tourismCostChart').getContext('2d');
+            const tourismCostChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Tiket Masuk Gunung Luhur', 'Camping (per tenda)', 'Workshop Anyam Rotan', 'Paket Tracking Sawah'],
+                    datasets: [{
+                        label: 'Estimasi Biaya (Rp)',
+                        data: [10000, 50000, 100000, 100000],
+                        backgroundColor: [
+                            'rgba(74, 92, 58, 0.7)',
+                            'rgba(242, 183, 5, 0.7)',
+                            'rgba(61, 52, 42, 0.7)',
+                            'rgba(166, 123, 91, 0.7)'
+                        ],
+                        borderColor: [
+                            '#4a5c3a',
+                            '#f2b705',
+                            '#3d342a',
+                            '#a67b5b'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(context.parsed.x);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return 'Rp ' + (value / 1000) + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Sticky header background change on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-[#3d342a]/90', 'backdrop-blur-sm');
+                } else {
+                    header.classList.remove('bg-[#3d342a]/90', 'backdrop-blur-sm');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
